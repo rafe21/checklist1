@@ -7,7 +7,7 @@ use App\Task;
 
 class Category extends Model
 {
-    protected $table = 'categorys';
+    protected $table = 'categories';
     protected $fillable = ['category', 'category_id'];
     public $timestamps = true;
 

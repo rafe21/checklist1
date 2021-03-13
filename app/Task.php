@@ -10,7 +10,7 @@ class Task extends Model
     protected $guarded = [];
     public $timestamps = true;
 
-    public function Task (){
+    public function category (){
         return $this->belongsTo(Category::class,'category_id');
     }
 }

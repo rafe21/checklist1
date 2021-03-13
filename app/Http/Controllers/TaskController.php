@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Task;
-use App\category;
+use App\models\Category;
 use Session;
 
 class TaskController extends Controller
@@ -16,9 +16,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::orderBy('id','desc')->get();
-
-        return view('tasks.index')->with('storedTasks' , $tasks);
+        $data['categories'] = Category::get();
+        $data['storedTasks'] = Task::with('category')->orderBy('id','desc')->get();
+        return view('tasks.index', $data);
     }
 
     /**
@@ -40,13 +40,14 @@ class TaskController extends Controller
     public function store(Request $request)
     {
        $this->validate($request,[
-                'newTaskName' => 'required|min:5|max:255',
+            'newTaskName' => 'required|min:5|max:255',
+            'category_id' => 'required',
 
        ]);
 
         $task = new Task;
-
         $task->name = $request->newTaskName ;
+        $task->category_id = $request->category_id ;
 
         $task->save();
 
@@ -109,7 +110,7 @@ class TaskController extends Controller
         $this->validate($request, [
             'name' => 'required|min:5|max:255'
         ]);
-
+        
         $task = Task::find( $request->id);
 
         $task->name = $request->name;

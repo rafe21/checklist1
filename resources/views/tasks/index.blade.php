@@ -5,7 +5,7 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="#" crossorigin="anonymous">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -49,21 +49,32 @@
                 <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
                 {{ csrf_field() }}
 
-                   <div class="col-md-9">
-                     <input type="text" name='newTaskName' class="form-control">
+                   <div class="col-md-4">
+						<label for="newTaskName">
+							Task Name
+							<input type="text" name='newTaskName' class="form-control">
+							<div class="col-md-">
+								<input type="submit" class='btn btn-primary btn-block' value='add Task'>
+						 </div>   
+						</label>
+                   </div>
+                   <div class="col-md-4">
+					   <label for="category_id">Category</label>
+					<select name="category_id" id="category_id">
+						@foreach ($categories as $category)
+							<option value="{{$category->id}}">{{$category->name}}</option>
+						@endforeach
+					</select>
                    </div>
 
-                   <div class="col-md-3">
-                    <input type="submit" class='btn btn-primary btn-block' value='add Task'>
-                   </div>   
                 </div>
             </form>
-            @include('tasks.particles.edit_task_modal')
 			@if(count($storedTasks) != 0)
 				<table class="table">
 
 					<thead>
 						<th>Task #</th>
+						<th>category name</th>
 						<th>Name</th>
 						<th>Edit</th>
 						<th>Delete</th>
@@ -71,30 +82,24 @@
 
 					<tbody>
 						@foreach ($storedTasks as $storedTask)
-						<form action="{{ route('TaskController@edit') }}" method='POST'>
-
-
-                           
 							{{ csrf_field() }}
 
 						<tr data-id="{{ $storedTask->id }}">
 							<th>{{ $loop->iteration }}</th>
+							<td>{{ !is_null($category = $storedTask->category) ? $category->name : '' }}</td>
 							<td>{{ $storedTask->name }}</td>
 							<td>
-							 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#edit_task" onclick="editTask('{{$storedTask->id}}')">
-								Edit
-							</button>
-						</form>
-							
+								<i class="fa fa-edit" data-toggle="modal" data-target="#edit_task"   onclick="editTask('{{$storedTask->id}}')" ></i>
+								
 							</td>                    
-							<td>
-								<form action="{{  route('tasks.destroy' , ['task'=>$storedTask->id]) }}" method="POST">
-									{{ csrf_field() }}
-									<input type="hidden" name='_method' value="DELETE">
-									
-									<input type="submit" class="btn btn-danger" value="Delete">
-								</form>
-							</td>
+								<td>
+									<form action="{{  route('tasks.destroy' , ['task'=>$storedTask->id]) }}" method="POST">
+										{{ csrf_field() }}
+										<input type="hidden" name='_method' value="DELETE">
+										
+										<input type="submit" class="btn btn-danger" value="Delete">
+									</form>
+								</td> 
 							</tr>
 						@endforeach
 					</tbody>
@@ -104,15 +109,16 @@
     	</div>
     </div>
 
+	@include('tasks.particles.edit_task_modal')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 	<script>
 		const editTask = (task_id) => {
-
+console.log (task_id);
 			$.ajax({
 				url: "{{route('TaskController@edit')}}", 
 				data: {
-					task_id
+					task_id,
 				},
 				success: function(response) {
 					$('#name').val(response.name);
