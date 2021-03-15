@@ -21,7 +21,7 @@
                 <div class="modal-footer">
                     <div class="form-group">
                         <input type="submit" value='save changes' class="btn btn-success" >
-                        <a href="" class="btn btn-danger pull-right">Go Back</a>
+                        <a href="" class="btn btn-danger pull-right mb-2">Go Back</a>
                     </div>
                 </div>
             </form>

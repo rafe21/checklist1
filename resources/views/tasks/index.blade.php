@@ -15,22 +15,23 @@
     <div class="container">
         
         <div class="col-md-offset-2 col-md-8">
-            <div class="row">
+            
                 <h1>tasks list</h1>
-            </div>
+
             {{--رسالة اضافة المهمة--}}
+
             @if (Session::has('success'))
                <div class="alert alert-success">
 
                   <strong>Success:</strong> {{ Session::get('success') }}
 
-               </div>
-             
+               </div>            
             @endif
       
 
 
             {{--رسالة الخطأ--}}
+
              @if (count($errors) > 0)
 
               <div class="alert alert-danger">
@@ -44,31 +45,58 @@
 
              @endif
 
+			<div class="row">
 
-			<form action="{{ route('tasks.store') }}" method='POST'>
-                <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
-                {{ csrf_field() }}
+				  {{--اضافة مهمة--}}
 
-                   <div class="col-md-4">
-						<label for="newTaskName">
-							Task Name
-							<input type="text" name='newTaskName' class="form-control">
-							<div class="col-md-">
-								<input type="submit" class='btn btn-primary btn-block' value='add Task'>
-						 </div>   
+				<form action="{{ route('tasks.store') }}" class="col-md-6" method='POST'>
+					<div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+					{{ csrf_field() }}
+
+					<div class="col-md-8">
+							<label for="newTaskName">
+								Task Name
+								<input type="text" name='newTaskName' class="form-control">
+							</label>
+							<input type="submit" class='btn btn-primary btn-block' value='add Task'>
+					</div>
+					<div class="col-md-4">
+						<label for="category_id">Category</label>
+						<select name="category_id" id="category_id">
+							@foreach ($categories as $category)
+								<option value="{{$category->id}}">{{$category->name}}</option>
+							@endforeach
+						</select>
+					   </div>
+					 </div>	
+				 </form>
+
+			{{--اضافة تصنيف--}}
+
+				<form action="{{ route('category.store') }}" class="col-md-6" method='POST'>
+					
+					<div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+					{{ csrf_field() }}
+
+					<div class="col-md-8">
+						<label for="categoryName">
+							category Name
+							<input type="text" name='categoryName' class="form-control">
 						</label>
-                   </div>
-                   <div class="col-md-4">
-					   <label for="category_id">Category</label>
-					<select name="category_id" id="category_id">
-						@foreach ($categories as $category)
-							<option value="{{$category->id}}">{{$category->name}}</option>
-						@endforeach
-					</select>
-                   </div>
+						<input type="submit" class='btn btn-primary btn-block' value='add category'>
+					</div>
+					<div class="col-md-4">
+						<label for="category_id">Category</label>
+						<select name="category_id" id="category_id">
+							@foreach ($categories as $category)
+								<option value="{{$category->id}}">{{$category->name}}</option>
+							@endforeach
+						</select>
+					  </div>
+					</div>
+				</form>
+			
 
-                </div>
-            </form>
 			@if(count($storedTasks) != 0)
 				<table class="table">
 
@@ -88,16 +116,19 @@
 							<th>{{ $loop->iteration }}</th>
 							<td>{{ !is_null($category = $storedTask->category) ? $category->name : '' }}</td>
 							<td>{{ $storedTask->name }}</td>
+
 							<td>
-								<i class="fa fa-edit" data-toggle="modal" data-target="#edit_task"   onclick="editTask('{{$storedTask->id}}')" ></i>
-								
-							</td>                    
+
+								<i type="submit" class="fa fa-edit" data-toggle="modal" data-target="#edit_task"   onclick="editTask('{{$storedTask->id}}')" ></i>
+
+							</td> 
+
 								<td>
 									<form action="{{  route('tasks.destroy' , ['task'=>$storedTask->id]) }}" method="POST">
 										{{ csrf_field() }}
 										<input type="hidden" name='_method' value="DELETE">
-										
-										<input type="submit" class="btn btn-danger" value="Delete">
+
+										<button class="btn"><i class="fas fa-trash-alt"></i></button>
 									</form>
 								</td> 
 							</tr>
@@ -110,6 +141,7 @@
     </div>
 
 	@include('tasks.particles.edit_task_modal')
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 	<script>
