@@ -71,21 +71,25 @@
 					 </div>	
 				 </form>
 
+
 			{{--اضافة تصنيف--}}
 
-				<form action="{{ route('category.store') }}" class="col-md-6" method='POST'>
+				{{-- <form action="{{ route('category.store') }}" class="col-md-6" method='POST'>
 					
 					<div class="row" style="margin-top: 10px; margin-bottom: 10px;">
-					{{ csrf_field() }}
+					{{ csrf_field() }} --}}
 
-					<div class="col-md-8">
-						<label for="categoryName">
+					<div class="col-md-6">
+						{{-- <label for="categoryName">
 							category Name
 							<input type="text" name='categoryName' class="form-control">
 						</label>
-						<input type="submit" class='btn btn-primary btn-block' value='add category'>
+						<input type="submit" class='btn btn-primary btn-block' value='add category'> --}}
+						
+						<button class="btn" data-toggle="modal" data-target="#add_categori"><i type="submit" class="fa fa-plus-square" ></i></button>
+
 					</div>
-					<div class="col-md-4">
+					{{-- <div class="col-md-4">
 						<label for="category_id">Category</label>
 						<select name="category_id" id="category_id">
 							@foreach ($categories as $category)
@@ -94,7 +98,7 @@
 						</select>
 					  </div>
 					</div>
-				</form>
+				</form> --}}
 			
 
 			@if(count($storedTasks) != 0)
@@ -140,6 +144,7 @@
     	</div>
     </div>
 
+	@include('tasks.particles.add_categori')
 	@include('tasks.particles.edit_task_modal')
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -153,8 +158,8 @@ console.log (task_id);
 					task_id,
 				},
 				success: function(response) {
-					$('#name').val(response.name);
-					$('#id').val(response.id);
+					$('#edit_task #name').val(response.name);
+					$('#edit_task #id').val(response.id);
 				}
 			})
 		}

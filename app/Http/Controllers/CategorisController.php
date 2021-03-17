@@ -37,17 +37,17 @@ class CategorisController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-             'categoryName' => 'required|min:5|max:255',
+             'name' => 'required|min:5|max:255',
  
         ]);
  
          $category = new Category;
-         $category->name = $request->categoryName ;
+         $category->name = $request->name ;
          
  
          $category->save();
  
-         \Session::flash('success', 'New Task has been successfully added.');
+         \Session::flash('success', 'New Categoris has been successfully added.');
          
          return redirect() -> route('tasks.index');
     }
