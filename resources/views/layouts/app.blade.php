@@ -23,7 +23,8 @@
         
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        @stack('scripts')
+        
+        @yield('scripts')
     </head>
   </head>
 </head>
