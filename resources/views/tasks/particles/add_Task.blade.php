@@ -3,7 +3,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">new categori</h5>
+            <h5 class="modal-title"  id="exampleModalLabel" >new tasks</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -13,7 +13,7 @@
                     <div class="row">
                         {!! csrf_field() !!}
                         <div class="form-group">
-                            <input type="text" name="name" id="name" class="form-control input-lg" value="">
+                            <input type="text" name="newTaskName" id="name" class="form-control input-lg" value="">
                         </div>
                     </div>
                 </div>
@@ -27,3 +27,11 @@
         </div>
     </div>
 </div> 
+
+<div class="col-md-8">
+    <label for="newTaskName">
+        Task Name
+        <input type="text" name='newTaskName' class="form-control">
+    </label>
+    <input type="submit" class='btn btn-primary btn-block' value='add Task'>
+</div>

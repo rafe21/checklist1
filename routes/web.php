@@ -27,6 +27,6 @@ Route::resource('/category', CategorisController::class);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
-// Auth::route();
+Auth::routes();
 
 
