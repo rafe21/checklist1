@@ -3,7 +3,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">new categori</h5>
+            <h3 class="modal-title" id="exampleModalLabel">New Categori</h3>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -13,14 +13,15 @@
                     <div class="row">
                         {!! csrf_field() !!}
                         <div class="form-group">
-                            <input type="text" name="name" id="name" class="form-control input-lg" value="">
+                            Categori Name
+                            <input type="text" name="name" id="name" placeholder="Add Category Name" class="form-control input-lg" value="">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="form-group">
-                        <input type="submit" value='add' class="btn btn-success" >
-                        <a href="" class="btn btn-danger pull-right mb-2">Go Back</a>
+                        <input type="submit" value='add' class="btn btn-primary" >
+                        <a href="" class="btn  pull-right mb-2">Go Back</a>
                     </div>
                 </div>
             </form>

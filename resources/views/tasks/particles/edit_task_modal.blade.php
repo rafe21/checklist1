@@ -3,7 +3,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Edit Task</h5>
+            <h3 class="modal-title" id="exampleModalLabel">Edit Task</h3>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -13,6 +13,7 @@
                     <div class="row">
                         {!! csrf_field() !!}
                         <div class="form-group">
+                            Edit Task
                             <input type="text" name="name" id="name" class="form-control input-lg" value="">
                             <input type="hidden" name="id" id="id" class="form-control input-lg" value="">
                         </div>
@@ -20,8 +21,8 @@
                 </div>
                 <div class="modal-footer">
                     <div class="form-group">
-                        <input type="submit" value='save changes' class="btn btn-success" >
-                        <a href="" class="btn btn-danger pull-right mb-2">Go Back</a>
+                        <input type="submit" value='save changes' class="btn btn-primary" >
+                        <a href="" class="btn pull-right mb-2">Go Back</a>
                     </div>
                 </div>
             </form>

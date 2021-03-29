@@ -14,11 +14,13 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $data['categories'] = Category::get();
-        $data['storedTasks'] = Task::with('category')->orderBy('id','desc')->get();
-        return view('tasks.index', $data);
+        $data['storedTasks'] = Task::with('category')->where('user_id',auth()->id())->orderBy('id','desc')->get();
+        $data['completed'] = $data['storedTasks']->where('status', 1)->count();
+        $data['uncompleted'] = $data['storedTasks']->where('status', 0)->count();
+        return view('tasks.index', $data );
     }
 
     /**
@@ -44,17 +46,40 @@ class TaskController extends Controller
             'category_id' => 'required',
 
        ]);
-
         $task = new Task;
         $task->name = $request->newTaskName ;
         $task->category_id = $request->category_id ;
-
+        $task->user_id = auth()->user()->id;
+        $task->status = 0 ;
         $task->save();
 
         Session::flash('success', 'New Task has been successfully added.');
         
         return redirect() -> route('tasks.index');
     }
+
+     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function status(Request $request)
+    {  
+        $this->validate($request,[
+            'status'=> 'required',
+        ]);
+       
+        $task = Task::find( $request->id);
+
+        $task->status = $request->status;
+        
+        $task->save();
+        
+        return view('tasks.index', $data );
+    }
+
+
     /**
      * Display the specified resource.
      *

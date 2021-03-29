@@ -14,12 +14,12 @@
 	<link href="/css/taskstyle.css"  rel="stylesheet"/>
 	<link href="/css/demo.css"  rel="stylesheet"/>
 	<link href="/css/light-bootstrap-dashboard.css"  rel="stylesheet"/>
-   
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
    
 
 </head>
 <body>
-	
+
     <div class="container">
         
         <div class="col-md-offset-2 col-md-8">

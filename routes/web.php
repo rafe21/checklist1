@@ -17,16 +17,14 @@ Route::group(['prefix'=>'tasks','as'=>'TaskController@'], function(){
     Route::get('/edit', 'TaskController@edit')->name('edit');
     Route::post('/update', 'TaskController@updateByModal')->name('updateByModal');
     Route::get('category-has-many','TaskController@getCategoryTasks')->name('getCategoryTasks');
-    
+    Route::get('/status', 'TaskController@status')->name('status');
     
 });
-
 Route::resource('/tasks', 'TaskController');
 Route::resource('/category', CategorisController::class);
-// Auth::route(['verify'=>true]);
-
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
-Auth::routes();
+// Auth::routes();
+Auth::routes(['verify'=>true]);
 
 
